@@ -6,6 +6,10 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "**/typeorm",
+      "**/typeorm/**"
     ]
   },
   "author": "Guilherme Henrique <guiihdourado@gmail.com>",
