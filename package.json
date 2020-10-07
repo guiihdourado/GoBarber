@@ -15,7 +15,7 @@
   "author": "Guilherme Henrique <guiihdourado@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.0.3",
-    "@gobarber/eslint-config": "*"
+    "@gobarber/eslint-config": "*",
+    "typescript": "^4.0.3"
   }
 }
