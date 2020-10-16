@@ -19,6 +19,13 @@ module.exports = {
     "prettier"
   ],
   "rules": {
+    "prettier/prettier": "error",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "camelcase": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "_"
+    }],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -26,9 +33,6 @@ module.exports = {
         "ts": "never"
       }
     ],
-    "prettier/prettier": "error",
-    "class-methods-use-this": "off",
-    "camelcase": "off",
   },
   "settings": {
     "import/resolver": {
