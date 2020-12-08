@@ -49,6 +49,16 @@ module.exports = {
         "tsx": "never"
       }
     ],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "object": {
+            "disabled": true,
+          }
+        }
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
