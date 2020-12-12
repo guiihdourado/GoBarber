@@ -1,9 +1,16 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
+interface UserObject {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+}
+
 interface AuthState {
   token: string;
-  user: object;
+  user: UserObject;
 }
 
 interface SignInCredentials {
@@ -12,7 +19,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: object;
+  user: UserObject;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -62,11 +69,11 @@ const AuthProvider: React.FC = ({ children }) => {
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
-  if(!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
   }
 
-  return context
+  return context;
 }
 
 export { AuthProvider, useAuth };

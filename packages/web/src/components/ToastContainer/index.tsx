@@ -17,15 +17,15 @@ const ToastContainer: React.FC<ToastContainerProps> = ({ messages }) => {
     {
       from: { right: '-120%', opacity: 0 },
       enter: { right: '0%', opacity: 1 },
-      leave: { right: '-120%', opacity: 0 },
+      leave: { right: '-120%', opacity: 0 }
     }
   );
 
   return (
     <Container>
-      {messagesWithTransitions.map(({ item, key, props }) => (
-        <Toast key={key} message={item} style={props} />
-      ))}
+      {messagesWithTransitions.map(({ item, key, props }) => {
+        return <Toast key={key} message={item} style={props} />;
+      })}
     </Container>
   );
 };
