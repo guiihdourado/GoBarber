@@ -37,6 +37,7 @@ module.exports = {
     "no-unused-expressions": "off",
     "class-methods-use-this": "off",
     "camelcase": "off",
+    '@typescript-eslint/no-var-requires': "off",
     "@typescript-eslint/no-unused-vars": ["error", {
       "argsIgnorePattern": "_"
     }],
