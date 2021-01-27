@@ -41,6 +41,17 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error", {
       "argsIgnorePattern": "_"
     }],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
+    ],
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
@@ -50,6 +61,7 @@ module.exports = {
         "tsx": "never"
       }
     ],
+    "no-useless-constructor": "off"
   },
   "settings": {
     "import/resolver": {
