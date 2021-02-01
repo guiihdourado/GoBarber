@@ -1,14 +1,26 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2017",
+    "module": "commonjs",
+    "allowJs": true,
     "outDir": "./dist",
     "rootDir": "./src",
-
     "strict": true,
     "strictPropertyInitialization": false,
-
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@config/*": ["config/*"],
+      "@modules/*": ["modules/*"],
+      "@shared/*": ["shared/*"]
+    }
   },
+  "include": ["src"]
 }

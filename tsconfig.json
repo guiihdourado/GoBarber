@@ -1,15 +1,11 @@
 {
   "compilerOptions": {
+    "target": "es2017",
     "module": "commonjs",
+    "noEmit": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./packages",
-    "paths": {
-      "@server/modules/*": ["server/src/modules/*"],
-      "@server/config/*": ["server/src/config/*"],
-      "@server/shared/*": ["server/src/shared/*"]
-    },
+    "forceConsistentCasingInFileNames": true
   }
 }

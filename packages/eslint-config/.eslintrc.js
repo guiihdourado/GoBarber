@@ -28,6 +28,7 @@ module.exports = {
     "react-hooks"
   ],
   "rules": {
+    "import/no-unresolved": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
