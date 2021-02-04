@@ -12,8 +12,7 @@
     ],
     "nohoist": [
       "**/typeorm",
-      "**/typeorm/**",
-      "**/*"
+      "**/typeorm/**"
     ]
   },
   "author": "Guilherme Henrique <guiihdourado@gmail.com>",
