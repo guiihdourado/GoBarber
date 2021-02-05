@@ -1,6 +1,9 @@
 node_modules
-dist
 yarn-error.log
 
-tmp/*
-!tmp/.gitkeep
+#server
+packages/server/dist
+packages/server/coverage/*
+packages/server/.env
+packages/server/tmp/*
+!packages/server/tmp/.gitkeep
