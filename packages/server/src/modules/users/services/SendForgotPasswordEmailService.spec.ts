@@ -1,20 +1,20 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
+import FakeUsersRepository from '../repositories/Fakes/FakeUsersRepository';
+import FakeUserTokensRepository from '../repositories/Fakes/FakeUserTokensRepository';
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
-let fakeMailProvider: FakeMailProvider;
 let fakeUserTokensRepository: FakeUserTokensRepository;
+let fakeMailProvider: FakeMailProvider;
 let sendForgotPasswordEmail: SendForgotPasswordEmailService;
 
 describe('SendForgotPasswordEmail', () => {
   beforeEach(() => {
-    fakeMailProvider = new FakeMailProvider();
     fakeUsersRepository = new FakeUsersRepository();
     fakeUserTokensRepository = new FakeUserTokensRepository();
+    fakeMailProvider = new FakeMailProvider();
 
     sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
@@ -28,21 +28,21 @@ describe('SendForgotPasswordEmail', () => {
 
     await fakeUsersRepository.create({
       name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123123'
+      email: 'johndoe@exemple.com',
+      password: '123456'
     });
 
-    const user = await sendForgotPasswordEmail.execute({
-      email: 'johndoe@example.com'
+    await sendForgotPasswordEmail.execute({
+      email: 'johndoe@exemple.com'
     });
 
     expect(sendMail).toHaveBeenCalled();
   });
 
-  it('should not be able to recover a non-existing user password', async () => {
+  it('should not be able to recover a non-existig user password', async () => {
     await expect(
       sendForgotPasswordEmail.execute({
-        email: 'johndoe@example.com'
+        email: 'johndoe@exemple.com'
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -52,12 +52,12 @@ describe('SendForgotPasswordEmail', () => {
 
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123123'
+      email: 'johndoe@exemple.com',
+      password: '123456'
     });
 
     await sendForgotPasswordEmail.execute({
-      email: 'johndoe@example.com'
+      email: 'johndoe@exemple.com'
     });
 
     expect(generateToken).toHaveBeenCalledWith(user.id);
