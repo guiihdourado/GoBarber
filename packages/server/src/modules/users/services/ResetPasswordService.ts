@@ -3,7 +3,6 @@ import { isAfter, addHours } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 
-// import User from "@modules/users/infra/typeorm/entities/User";
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -30,13 +29,13 @@ class ResetPasswordService {
     const userToken = await this.userTokensRepository.findByToken(token);
 
     if (!userToken) {
-      throw new AppError('User Token does not exists');
+      throw new AppError('User token does not exists');
     }
 
     const user = await this.usersRepository.findById(userToken.user_id);
 
     if (!user) {
-      throw new AppError('User Token does not exists');
+      throw new AppError('User does not exists');
     }
 
     const tokenCreatedAt = userToken.created_at;

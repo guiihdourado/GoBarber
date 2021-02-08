@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import User from '@modules/users/infra/typeorm/entities/User';
+import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -20,7 +20,7 @@ class ShowProfileService {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError('User not found.');
+      throw new AppError('User not found');
     }
 
     return user;

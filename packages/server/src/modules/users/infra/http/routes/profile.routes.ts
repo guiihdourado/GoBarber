@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { celebrate, Segments, Joi } from 'celebrate';
+import { celebrate, Joi, Segments } from 'celebrate';
 
 import ProfileController from '../controllers/ProfileController';
 
-import authMiddleware from '../middlewares/auth';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
 
-profileRouter.use(authMiddleware);
+profileRouter.use(ensureAuthenticated);
 
 profileRouter.get('/', profileController.show);
 profileRouter.put(

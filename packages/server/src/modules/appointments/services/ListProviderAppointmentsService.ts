@@ -13,7 +13,7 @@ interface IRequest {
 }
 
 @injectable()
-class ListProvidersAppointmentsService {
+class ListProviderAppointmentsService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
@@ -43,11 +43,12 @@ class ListProvidersAppointmentsService {
           year
         }
       );
-
-      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
+
+    await this.cacheProvider.save(cacheKey, classToClass(appointments));
+
     return appointments;
   }
 }
 
-export default ListProvidersAppointmentsService;
+export default ListProviderAppointmentsService;

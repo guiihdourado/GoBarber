@@ -1,9 +1,9 @@
-import nodemailer, { Transporter } from 'nodemailer';
 import { injectable, inject } from 'tsyringe';
+import nodemailer, { Transporter } from 'nodemailer';
 
-import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
-import IMailProvider from '../models/IMailProvider';
 import ISendMailDTO from '../dtos/ISendMailDTO';
+import IMailProvider from '../models/IMailProvider';
+import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTemplateProvider';
 
 @injectable()
 export default class EtherealMailProvider implements IMailProvider {
@@ -13,21 +13,24 @@ export default class EtherealMailProvider implements IMailProvider {
     @inject('MailTemplateProvider')
     private mailTemplateProvider: IMailTemplateProvider
   ) {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      auth: {
-        user: 'albertha.schoen98@ethereal.email',
-        pass: '8DfWYV57vJrDF2TEkK'
-      }
-    });
+    nodemailer.createTestAccount().then(account => {
+      const transporter = nodemailer.createTransport({
+        host: account.smtp.host,
+        port: account.smtp.port,
+        secure: account.smtp.secure,
+        auth: {
+          user: account.user,
+          pass: account.pass
+        }
+      });
 
-    this.client = transporter;
+      this.client = transporter;
+    });
   }
 
   public async sendMail({
-    to,
     from,
+    to,
     subject,
     templateData
   }: ISendMailDTO): Promise<void> {
