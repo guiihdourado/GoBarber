@@ -1,4 +1,4 @@
-import { startOfHour, isBefore, getHours, format } from 'date-fns';
+import ptBR, { startOfHour, isBefore, getHours, format } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
@@ -63,7 +63,9 @@ class CreateAppointmentService {
       date: appointmentDate
     });
 
-    const dateFormatted = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'");
+    const dateFormatted = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'", {
+      locale: ptBR
+    });
 
     await this.notificationsRepository.create({
       recipient_id: provider_id,
