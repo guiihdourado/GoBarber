@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
+import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -18,7 +18,7 @@ import Button from '../../components/Button';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
 
-interface ISignUpFormData {
+interface IDataForm {
   name: string;
   email: string;
   password: string;
@@ -30,15 +30,14 @@ const SignUp: React.FC = () => {
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async (data: ISignUpFormData) => {
+    async (data: IDataForm) => {
       try {
         formRef.current?.setErrors({});
-
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
           email: Yup.string()
-            .email('Digite um e-mail válido')
-            .required('E-mail obrigatório'),
+            .required('Email obrigatório')
+            .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos')
         });
 
@@ -66,7 +65,7 @@ const SignUp: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro no cadastro',
+          title: 'Erro no Cadastro',
           description: 'Ocorreu um erro ao fazer cadastro, tente novamente.'
         });
       }
@@ -85,9 +84,7 @@ const SignUp: React.FC = () => {
             <h1>Faça seu cadastro</h1>
 
             <Input name="name" icon={FiUser} placeholder="Nome" />
-
             <Input name="email" icon={FiMail} placeholder="E-mail" />
-
             <Input
               name="password"
               icon={FiLock}
@@ -95,7 +92,7 @@ const SignUp: React.FC = () => {
               placeholder="Senha"
             />
 
-            <Button type="submit">Cadastrar</Button>
+            <Button type="submit">Entrar</Button>
           </Form>
 
           <Link to="/">

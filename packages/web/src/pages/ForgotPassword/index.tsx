@@ -6,15 +6,16 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
 import { useToast } from '../../hooks/toast';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import api from '../../services/api';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
-import api from '../../services/api';
 
 interface IForgotPasswordFormData {
   email: string;
@@ -44,8 +45,6 @@ const ForgotPassword: React.FC = () => {
           abortEarly: false
         });
 
-        // recuperação de senha
-
         await api.post('/password/forgot', {
           email: data.email
         });
@@ -56,8 +55,6 @@ const ForgotPassword: React.FC = () => {
           description:
             'Enviamos um e-mail para confirmar a recuperação de senha, cheque sua caixa de entrada'
         });
-
-        // history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -96,7 +93,7 @@ const ForgotPassword: React.FC = () => {
             </Button>
           </Form>
 
-          <Link to="/signin">
+          <Link to="/">
             <FiLogIn />
             Voltar ao login
           </Link>
