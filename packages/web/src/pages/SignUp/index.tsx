@@ -18,7 +18,7 @@ import Button from '../../components/Button';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
 
-interface DataForm {
+interface IDataForm {
   name: string;
   email: string;
   password: string;
@@ -30,7 +30,7 @@ const SignUp: React.FC = () => {
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async (data: DataForm) => {
+    async (data: IDataForm) => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
