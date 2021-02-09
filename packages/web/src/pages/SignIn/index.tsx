@@ -1,12 +1,12 @@
 import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
-
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
@@ -22,20 +22,22 @@ interface ISignInFormData {
 }
 
 const SignIn: React.FC = () => {
-  const formRef = useRef(null);
+  const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useAuth();
   const { addToast } = useToast();
+
   const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: ISignInFormData) => {
       try {
         formRef.current?.setErrors({});
+
         const schema = Yup.object().shape({
           email: Yup.string()
-            .required('Email obrigatório')
-            .email('Digite um e-mail válido'),
+            .email('Digite um e-mail válido')
+            .required('E-mail obrigatório'),
           password: Yup.string().required('Senha obrigatória')
         });
 
@@ -61,8 +63,7 @@ const SignIn: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Erro na autenticação',
-          description:
-            'Ocorreu um erro ao fazer login, verifique as credenciais.'
+          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.'
         });
       }
     },
@@ -79,6 +80,7 @@ const SignIn: React.FC = () => {
             <h1>Faça seu logon</h1>
 
             <Input name="email" icon={FiMail} placeholder="E-mail" />
+
             <Input
               name="password"
               icon={FiLock}
@@ -93,10 +95,11 @@ const SignIn: React.FC = () => {
 
           <Link to="/signup">
             <FiLogIn />
-            Criar Conta
+            Criar conta
           </Link>
         </AnimationContainer>
       </Content>
+
       <Background />
     </Container>
   );
