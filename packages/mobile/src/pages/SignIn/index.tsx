@@ -17,7 +17,7 @@ import { FormHandles } from '@unform/core';
 
 import { useAuth } from '../../hooks/auth';
 
-import getValidationErrors from '../../utils/getValidationsErrors';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';

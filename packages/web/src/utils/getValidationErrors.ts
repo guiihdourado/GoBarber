@@ -1,11 +1,11 @@
 import { ValidationError } from 'yup';
 
-interface Errors {
+interface IErrors {
   [key: string]: string;
 }
 
-export default function getValidationErrors(err: ValidationError): Errors {
-  const validationsErrors: Errors = {};
+export default function getValidationErrors(err: ValidationError): IErrors {
+  const validationsErrors: IErrors = {};
 
   err.inner.forEach(error => {
     validationsErrors[error.path] = error.message;
