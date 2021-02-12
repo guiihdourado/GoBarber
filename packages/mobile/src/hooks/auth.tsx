@@ -6,37 +6,36 @@ import React, {
   useEffect
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-
 import api from '../services/api';
 
-interface UserObject {
+interface IUser {
   id: string;
-  name: string;
   email: string;
-  avatar: string;
+  name: string;
+  avatar_url: string;
 }
 
-interface AuthState {
+interface IAuthState {
   token: string;
-  user: UserObject;
+  user: IUser;
 }
 
-interface SignInCredentials {
+interface ISignInCredentials {
   email: string;
   password: string;
 }
 
-interface AuthContextData {
-  user: UserObject;
+interface IAuthContextData {
+  user: IUser;
   loading: boolean;
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn(credentials: ISignInCredentials): Promise<void>;
   signOut(): void;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>({} as AuthState);
+  const [data, setData] = useState<IAuthState>({} as IAuthState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,6 +46,8 @@ const AuthProvider: React.FC = ({ children }) => {
       ]);
 
       if (token[1] && user[1]) {
+        api.defaults.headers.authorization = `Bearer ${token[1]}`;
+
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
 
@@ -62,20 +63,22 @@ const AuthProvider: React.FC = ({ children }) => {
       password
     });
 
-    const { user, token } = response.data;
+    const { token, user } = response.data;
 
     await AsyncStorage.multiSet([
       ['@GoBarber:token', token],
       ['@GoBarber:user', JSON.stringify(user)]
     ]);
 
+    api.defaults.headers.authorization = `Bearer ${token}`;
+
     setData({ token, user });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user']);
+    await AsyncStorage.multiRemove(['@GoBarber:user', '@GoBarber:token']);
 
-    setData({} as AuthState);
+    setData({} as IAuthState);
   }, []);
 
   return (
@@ -85,7 +88,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-function useAuth(): AuthContextData {
+function useAuth(): IAuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
